@@ -3,20 +3,22 @@
     <div class="bg bg-orange"></div>
     <div class="bg bg-blue" :data-fadeBg="isLeaving"></div>
     <div class="wrapper">
-      <button
-        class="shabon-link"
-        to="/チームシャボン"
-        @click="leavePage('チームジャンボ')"
-      >
-        <div class="shabon-wrapper">
-          <div class="shabon-animation">
-            <Shabon
-              src="https://shanaiho-navi.jp/wp-content/uploads/2017/06/Fotolia_74570267_Subscription_Monthly_M-1024x682.jpg"
-            />
+      <div class="shabon__contain">
+        <button
+          class="shabon-link"
+          to="/チームシャボン"
+          @click="leavePage('チームジャンボ')"
+        >
+          <div class="shabon-wrapper">
+            <div class="shabon-animation">
+              <Shabon
+                src="https://shanaiho-navi.jp/wp-content/uploads/2017/06/Fotolia_74570267_Subscription_Monthly_M-1024x682.jpg"
+              />
+            </div>
+            <p class="team-name">チームシャボン</p>
           </div>
-          <p class="team-name">チームシャボン</p>
-        </div>
-      </button>
+        </button>
+      </div>
       <template v-if="isLeaving">
         <div
           class="shabon-fadein"
@@ -56,6 +58,8 @@ export default {
     this.socket.onopen = (event) => {
       console.log('connection!!')
     }
+
+    // TODO: APIでチームの情報を全て取得する
   },
   methods: {
     leavePage(link) {
@@ -100,6 +104,13 @@ export default {
   );
 }
 
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .shabon-wrapper {
   width: fit-content;
 }
@@ -110,7 +121,22 @@ export default {
 }
 
 .shabon-animation {
-  animation: bounce 3s infinite alternate ease-in-out;
+  margin: 0 20px;
+  &:nth-child(1n) {
+    animation: bounce 3.4s infinite alternate ease-in-out;
+  }
+  &:nth-child(2n) {
+    animation: bounce 3s infinite alternate ease-in-out;
+    scale: 1.2;
+  }
+  &:nth-child(3n) {
+    animation: bounce 2.8s infinite alternate ease-in-out;
+    scale: 0.9;
+  }
+  &:nth-child(4n) {
+    animation: bounce 2.5s infinite alternate ease-in-out;
+    scale: 1.4;
+  }
 }
 
 .shabon-fadein {
@@ -224,6 +250,14 @@ export default {
   &[data-shabon='30'] {
     width: 200px;
   }
+}
+
+.shabon__contain {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  margin: auto;
+  flex-wrap: wrap;
 }
 
 .team-name {
