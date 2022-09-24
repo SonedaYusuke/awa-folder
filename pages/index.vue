@@ -1,9 +1,9 @@
 <template>
-  <p>waiwai</p>
+  <div>
+    <Shabon />
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'IndexPage',
-}
+export default {}
 </script>
