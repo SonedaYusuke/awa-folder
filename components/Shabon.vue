@@ -32,7 +32,6 @@ export default {
   justify-content: center;
   align-items: center;
   background-size: contain;
-  animation: bounce 3s infinite alternate ease-in-out;
   &__image {
     opacity: 0.8;
     width: 100%;
@@ -44,15 +43,6 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-  }
-}
-
-@keyframes bounce {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(0, 30px);
   }
 }
 </style>
