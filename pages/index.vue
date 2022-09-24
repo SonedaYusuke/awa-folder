@@ -12,7 +12,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      socket: null,
+    }
+  },
+  mounted() {
+    this.socket = new WebSocket(
+      'wss://o2vmciuox2.execute-api.ap-northeast-1.amazonaws.com/production/'
+    )
+
+    this.socket.onmessage = (event) => {
+      console.log('get message!')
+      console.log(event.data)
+    }
+
+    this.socket.onopen = (event) => {
+      console.log('connection!!')
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
