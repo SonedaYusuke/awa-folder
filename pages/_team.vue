@@ -1,8 +1,15 @@
 <template>
   <div class="wrapper">
-    <span>{{ teamName }}</span>
-    <div v-for="(item, index) in items" :key="`key-${index}`">
-      <Shabon :src="`data:image/jpeg;base64,${item.img}`" />
+    <div class="team__wrapper">
+      <span>{{ teamName }}</span>
+    </div>
+    <div class="shabon__wrapper">
+      <div v-for="(item, index) in items" :key="`key-${index}`">
+        <Shabon
+          :src="`data:image/jpeg;base64,${item.img}`"
+          :shabonId="index % 5"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -40,5 +47,25 @@ export default {
     rgba(221, 143, 81, 1) 100%
   );
   min-height: 100vh;
+}
+
+.shabon__wrapper {
+  display: flex;
+}
+
+.team__wrapper {
+  background-image: url('~/assets/image/team-bg.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 260px;
+  height: 93px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 18px;
+  padding-left: 10px;
 }
 </style>

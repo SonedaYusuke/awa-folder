@@ -1,6 +1,11 @@
 <template>
   <div class="shabon">
-    <img class="shabon__image" :src="src" alt="" />
+    <img
+      class="shabon__image"
+      :src="require(`~/assets/image/shabon${shabonId}.png`)"
+      alt=""
+    />
+    <img class="shabon__photo" :src="src" alt="" />
   </div>
 </template>
 
@@ -11,24 +16,43 @@ export default {
       type: String,
       default: '',
     },
+    shabonId: {
+      type: Number,
+      default: 0,
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .shabon {
-  width: 250px;
-  height: 250px;
-  border-radius: 100vh;
+  position: relative;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('~/assets/image/shabon0.png');
   background-size: contain;
-  opacity: 0.63;
+  animation: bounce 3s infinite alternate ease-in-out;
   &__image {
-    width: 60%;
+    opacity: 0.8;
+    width: 100%;
+  }
+  &__photo {
+    width: 50%;
     opacity: 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 30px);
   }
 }
 </style>
