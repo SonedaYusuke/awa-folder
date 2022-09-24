@@ -45,6 +45,7 @@ export default {
     return {
       items: null,
       selectedImageIndex: null,
+      socket: null,
     }
   },
   computed: {
@@ -53,6 +54,20 @@ export default {
     },
   },
   async mounted() {
+    this.socket = new WebSocket(
+      'wss://o2vmciuox2.execute-api.ap-northeast-1.amazonaws.com/production/'
+    )
+
+    // TODO: websocketの処理を追加
+    this.socket.onmessage = (event) => {
+      console.log('get message!')
+      console.log(event.data)
+    }
+
+    this.socket.onopen = (event) => {
+      console.log('connection!!')
+    }
+
     const res = await this.$axios.get(
       'https://ddcc6rhxy5.execute-api.ap-northeast-1.amazonaws.com/prod/photoconne/testa7ac8147-af71-4b9d-908b-94797ddaf46f'
     )

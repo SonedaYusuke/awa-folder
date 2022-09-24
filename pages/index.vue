@@ -4,35 +4,39 @@
     <div class="bg bg-blue" :data-fadeBg="isLeaving"></div>
     <div class="wrapper">
       <div class="shabon__contain">
-        <button
-          class="shabon-link"
-          to="/チームシャボン"
-          @click="leavePage('チームジャンボ')"
-        >
+        <!-- TODO: ここかえる -->
+        <div class="shabon-link">
           <div class="shabon-wrapper">
-            <div class="shabon-animation">
+            <button
+              class="shabon-animation"
+              @click="leavePage('チームジャンボ')"
+            >
               <Shabon
                 src="https://shanaiho-navi.jp/wp-content/uploads/2017/06/Fotolia_74570267_Subscription_Monthly_M-1024x682.jpg"
               />
-            </div>
+            </button>
             <p class="team-name">チームシャボン</p>
           </div>
-        </button>
-      </div>
-      <template v-if="isLeaving">
-        <div
-          class="shabon-fadein"
-          v-for="index in 40"
-          :style="{
-            left: `${((index % 10) - 1) * 180}px`,
-            top: `${Math.floor(index / 10) * 120}px`,
-          }"
-          :key="index"
-          :data-shabon="index"
-        >
-          <ShabonNoImage />
         </div>
-      </template>
+      </div>
+    </div>
+    <div class="shabons-animation-wrapper">
+      <transition-group name="fade">
+        <template v-if="isLeaving">
+          <div
+            class="shabon-fadein"
+            v-for="index in 40"
+            :style="{
+              left: `${((index % 10) - 1) * 180}px`,
+              top: `${Math.floor(index / 10) * 120}px`,
+            }"
+            :key="index"
+            :data-shabon="index"
+          >
+            <ShabonNoImage />
+          </div>
+        </template>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -50,6 +54,7 @@ export default {
       'wss://o2vmciuox2.execute-api.ap-northeast-1.amazonaws.com/production/'
     )
 
+    // TODO: websocketの処理を追加
     this.socket.onmessage = (event) => {
       console.log('get message!')
       console.log(event.data)
@@ -137,6 +142,16 @@ export default {
     animation: bounce 2.5s infinite alternate ease-in-out;
     scale: 1.4;
   }
+}
+
+.shabons-animation-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .shabon-fadein {
@@ -267,6 +282,15 @@ export default {
   z-index: 0;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 @keyframes bounce {
   0% {
     transform: translate(0, 0);
@@ -281,12 +305,15 @@ export default {
     transform: translate(0, 100vh);
     opacity: 0;
   }
-  50% {
+  20% {
+    opacity: 0.7;
+  }
+  70% {
     opacity: 0.7;
   }
   100% {
     transform: translate(0, -200px);
-    opacity: 0.7;
+    opacity: 0;
   }
 }
 
