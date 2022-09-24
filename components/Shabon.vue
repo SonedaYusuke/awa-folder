@@ -17,15 +17,18 @@ export default {
 
 <style lang="scss" scoped>
 .shabon {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   border-radius: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  outline: 2px solid #000;
+  background-image: url('~/assets/image/shabon0.png');
+  background-size: contain;
+  opacity: 0.63;
   &__image {
-    width: 70%;
+    width: 60%;
+    opacity: 1;
   }
 }
 </style>
