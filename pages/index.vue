@@ -4,18 +4,16 @@
     <div class="bg bg-blue" :data-fadeBg="isLeaving"></div>
     <div class="wrapper">
       <div class="shabon__contain">
-        <!-- TODO: ここかえる -->
-        <div class="shabon-link">
+        <div class="shabon-link" v-for="item in items" :key="item.folder_name">
           <div class="shabon-wrapper">
             <button
               class="shabon-animation"
-              @click="leavePage('チームジャンボ')"
+              @click="leavePage(item.folder_name)"
             >
-              <Shabon
-                src="https://shanaiho-navi.jp/wp-content/uploads/2017/06/Fotolia_74570267_Subscription_Monthly_M-1024x682.jpg"
-              />
+              <!-- TODO: サムネ画像欲しい -->
+              <Shabon src="" />
             </button>
-            <p class="team-name">チームシャボン</p>
+            <p class="team-name">{{ item.folder_name }}</p>
           </div>
         </div>
       </div>
@@ -47,9 +45,10 @@ export default {
     return {
       socket: null,
       isLeaving: false,
+      items: null,
     }
   },
-  mounted() {
+  async mounted() {
     this.socket = new WebSocket(
       'wss://o2vmciuox2.execute-api.ap-northeast-1.amazonaws.com/production/'
     )
@@ -65,6 +64,12 @@ export default {
     }
 
     // TODO: APIでチームの情報を全て取得する
+
+    const res = await this.$axios.get(
+      'https://ddcc6rhxy5.execute-api.ap-northeast-1.amazonaws.com/prod/photoconne/all'
+    )
+    console.log(res.data)
+    this.items = res.data
   },
   methods: {
     leavePage(link) {
@@ -118,6 +123,7 @@ export default {
 
 .shabon-wrapper {
   width: fit-content;
+  margin-bottom: 30px;
 }
 
 .shabon-link {
@@ -156,16 +162,16 @@ export default {
 
 .shabon-fadein {
   position: absolute;
-  animation: shabonFadeIn 3s infinite;
+  animation: shabonFadeIn 3s;
   width: 200px;
   opacity: 0;
 
   &[data-shabon='1'] {
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='2'] {
     width: 160px;
-    animation: shabonFadeIn 3s infinite;
+    animation: shabonFadeIn 3s forwards;
   }
   &[data-shabon='3'] {
     width: 180px;
@@ -175,7 +181,7 @@ export default {
   }
   &[data-shabon='5'] {
     width: 140px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='6'] {
     width: 200px;
@@ -185,7 +191,7 @@ export default {
   }
   &[data-shabon='8'] {
     width: 100px;
-    animation: shabonFadeIn 2.6s 0.5s infinite;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
   }
   &[data-shabon='9'] {
     width: 200px;
@@ -195,45 +201,45 @@ export default {
   }
   &[data-shabon='11'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='12'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s infinite;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
   }
   &[data-shabon='13'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='14'] {
     width: 200px;
   }
   &[data-shabon='15'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s infinite;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
   }
   &[data-shabon='16'] {
     width: 250px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='17'] {
     width: 200px;
   }
   &[data-shabon='18'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s infinite;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
   }
   &[data-shabon='19'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='20'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s infinite;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
   }
   &[data-shabon='21'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='22'] {
     width: 200px;
@@ -243,18 +249,18 @@ export default {
   }
   &[data-shabon='24'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s infinite;
+    animation: shabonFadeIn 3s 0.5s forwards;
   }
   &[data-shabon='25'] {
     width: 200px;
-    animation: shabonFadeIn 4s 0.5s infinite;
+    animation: shabonFadeIn 4s 0.5s forwards;
   }
   &[data-shabon='26'] {
     width: 200px;
   }
   &[data-shabon='27'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s infinite;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
   }
   &[data-shabon='28'] {
     width: 200px;
@@ -264,6 +270,47 @@ export default {
   }
   &[data-shabon='30'] {
     width: 200px;
+    animation: shabonFadeIn 3s forwards;
+  }
+  &[data-shabon='31'] {
+    width: 110px;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
+  }
+  &[data-shabon='32'] {
+    width: 180px;
+    animation: shabonFadeIn 3.3s 0.3s forwards;
+  }
+  &[data-shabon='34'] {
+    width: 200px;
+    animation: shabonFadeIn 2.8s forwards;
+  }
+  &[data-shabon='35'] {
+    width: 170px;
+    animation: shabonFadeIn 3s 0.2s forwards;
+  }
+  &[data-shabon='36'] {
+    width: 130px;
+    animation: shabonFadeIn 2.6s 0.5s forwards;
+  }
+  &[data-shabon='36'] {
+    width: 110px;
+    animation: shabonFadeIn 2s 0.3s forwards;
+  }
+  &[data-shabon='37'] {
+    width: 200px;
+    animation: shabonFadeIn 3s 0.5s forwards;
+  }
+  &[data-shabon='38'] {
+    width: 200px;
+    animation: shabonFadeIn 3s forwards;
+  }
+  &[data-shabon='39'] {
+    width: 180px;
+    animation: shabonFadeIn 2.6s 0.3s forwards;
+  }
+  &[data-shabon='40'] {
+    width: 200px;
+    animation: shabonFadeIn 2.8s forwards;
   }
 }
 
@@ -277,7 +324,7 @@ export default {
 
 .team-name {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 30px;
   position: relative;
   z-index: 0;
 }
