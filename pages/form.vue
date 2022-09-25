@@ -18,8 +18,10 @@ export default {
   data() {
     return {
       image: null,
+      imageElement: null,
       folder: null,
       socket: null,
+      aspect: null,
     }
   },
   methods: {
@@ -27,10 +29,22 @@ export default {
       e.preventDefault()
       if (!this.image || !this.folder) return
 
-      console.log(this.image.replace(/data:image\/.*;base64,/gi, ''))
+      const canvas = document.createElement('canvas')
+      canvas.width = 300
+      canvas.height = 300 * this.aspect
+
+      const ctx = canvas.getContext('2d')
+      ctx.drawImage(this.imageElement, 0, 0, canvas.width, canvas.height)
+
+      console.log(
+        canvas.toDataURL('image/jpeg').replace(/data:image\/.*;base64,/gi, '')
+      )
+
       const obj = JSON.stringify({
         action: 'sendphoto',
-        base_64_image: this.image.replace(/data:image\/.*;base64,/gi, ''),
+        base_64_image: canvas
+          .toDataURL('image/jpeg')
+          .replace(/data:image\/.*;base64,/gi, ''),
         folder_name: `ishinomakihackathon2022-${this.folder}`,
       })
       console.log(obj)
@@ -40,9 +54,17 @@ export default {
       const reader = new FileReader()
 
       const image = e.target.files[0]
+      console.log(image)
 
-      reader.onload = () => {
+      reader.onload = (e) => {
         console.log('読み込んだ')
+        const image = new Image()
+        image.onload = () => {
+          console.log(image.width, image.height)
+          this.aspect = image.height / image.width
+          this.imageElement = image
+        }
+        image.src = reader.result
         this.image = reader.result
       }
 
