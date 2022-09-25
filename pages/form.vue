@@ -30,8 +30,8 @@ export default {
       if (!this.image || !this.folder) return
 
       const canvas = document.createElement('canvas')
-      canvas.width = 300
-      canvas.height = 300 * this.aspect
+      canvas.width = 200
+      canvas.height = 200 * this.aspect
 
       const ctx = canvas.getContext('2d')
       ctx.drawImage(this.imageElement, 0, 0, canvas.width, canvas.height)
