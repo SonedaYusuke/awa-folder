@@ -27,9 +27,10 @@ export default {
       e.preventDefault()
       if (!this.image || !this.folder) return
 
+      console.log(this.image.replace(/data:image\/.*;base64,/gi, ''))
       const obj = JSON.stringify({
         action: 'sendphoto',
-        base_64_image: this.image,
+        base_64_image: this.image.replace(/data:image\/.*;base64,/gi, ''),
         folder_name: `ishinomakihackathon2022-${this.folder}`,
       })
       console.log(obj)

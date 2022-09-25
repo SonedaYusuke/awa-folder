@@ -16,10 +16,7 @@
           :key="`key-${index}`"
           @click="showImageModal(index)"
         >
-          <Shabon
-            :src="`data:image/jpeg;base64,${item.img}`"
-            :shabonId="index % 5"
-          />
+          <Shabon :src="`${item.img}`" :shabonId="index % 5" />
         </div>
       </div>
     </transition>
@@ -30,10 +27,7 @@
         class="modal"
         @click.self="closeModal"
       >
-        <img
-          class="modal__image"
-          :src="`data:image/jpeg;base64,${items[selectedImageIndex].img}`"
-        />
+        <img class="modal__image" :src="`${items[selectedImageIndex].img}`" />
       </div>
     </transition>
   </div>
