@@ -56,6 +56,10 @@ export default {
     this.socket.onmessage = (event) => {
       console.log('get message!')
       console.log(event.data)
+
+      this.items.push({
+        img: `data:image/jpeg;base64,${event.data}`,
+      })
     }
 
     this.socket.onopen = (event) => {
