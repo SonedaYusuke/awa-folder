@@ -55,6 +55,10 @@ export default {
     }
   },
   async mounted() {
+    if (window.innerWidth < 750) {
+      this.$router.push('/form')
+    }
+
     this.socket = new WebSocket(
       'wss://o2vmciuox2.execute-api.ap-northeast-1.amazonaws.com/production/'
     )
