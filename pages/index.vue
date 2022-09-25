@@ -2,22 +2,28 @@
   <div>
     <div class="bg bg-orange"></div>
     <div class="bg bg-blue" :data-fadeBg="isLeaving"></div>
-    <div class="wrapper">
-      <div class="shabon__contain">
-        <div class="shabon-link" v-for="item in items" :key="item.folder_name">
-          <div class="shabon-wrapper">
-            <button
-              class="shabon-animation"
-              @click="leavePage(item.folder_name)"
-            >
-              <!-- TODO: サムネ画像欲しい -->
-              <Shabon src="" />
-            </button>
-            <p class="team-name">{{ item.folder_name }}</p>
+    <transition name="fade">
+      <div v-if="!isLeaving" class="wrapper">
+        <div class="shabon__contain">
+          <div
+            class="shabon-link"
+            v-for="item in items"
+            :key="item.folder_name"
+          >
+            <div class="shabon-wrapper">
+              <button
+                class="shabon-animation"
+                @click="leavePage(item.folder_name)"
+              >
+                <!-- TODO: サムネ画像欲しい -->
+                <Shabon src="" />
+              </button>
+              <p class="team-name">{{ item.folder_name }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
     <div class="shabons-animation-wrapper">
       <transition-group name="fade">
         <template v-if="isLeaving">
@@ -26,7 +32,7 @@
             v-for="index in 40"
             :style="{
               left: `${((index % 10) - 1) * 180}px`,
-              top: `${Math.floor(index / 10) * 120}px`,
+              top: `${Math.floor(index / 10) * 180}px`,
             }"
             :key="index"
             :data-shabon="index"
@@ -76,7 +82,7 @@ export default {
       this.isLeaving = true
       setTimeout(() => {
         this.$router.push(link)
-      }, 3000)
+      }, 3500)
     },
   },
 }
@@ -175,6 +181,7 @@ export default {
   }
   &[data-shabon='3'] {
     width: 180px;
+    animation: shabonFadeIn 2.8s 0.2s forwards;
   }
   &[data-shabon='4'] {
     width: 200px;
@@ -185,6 +192,7 @@ export default {
   }
   &[data-shabon='6'] {
     width: 200px;
+    animation: shabonFadeIn 3s 0.8s forwards;
   }
   &[data-shabon='7'] {
     width: 200px;
@@ -195,43 +203,45 @@ export default {
   }
   &[data-shabon='9'] {
     width: 200px;
+    animation: shabonFadeIn 2.8s forwards;
   }
   &[data-shabon='10'] {
     width: 200px;
+    animation: shabonFadeIn 3s 0.2s forwards;
   }
   &[data-shabon='11'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s forwards;
+    animation: shabonFadeIn 3.2s 0.2s forwards;
   }
   &[data-shabon='12'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s forwards;
+    animation: shabonFadeIn 2.6s 1s forwards;
   }
   &[data-shabon='13'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s forwards;
+    animation: shabonFadeIn 3s 0.3s forwards;
   }
   &[data-shabon='14'] {
     width: 200px;
   }
   &[data-shabon='15'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s forwards;
+    animation: shabonFadeIn 2.6s 0.4s forwards;
   }
   &[data-shabon='16'] {
     width: 250px;
-    animation: shabonFadeIn 3s 0.5s forwards;
+    animation: shabonFadeIn 3s 0.1s forwards;
   }
   &[data-shabon='17'] {
     width: 200px;
   }
   &[data-shabon='18'] {
     width: 110px;
-    animation: shabonFadeIn 2.6s 0.5s forwards;
+    animation: shabonFadeIn 2.6s 0.1s forwards;
   }
   &[data-shabon='19'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s forwards;
+    animation: shabonFadeIn 3s 0.2s forwards;
   }
   &[data-shabon='20'] {
     width: 110px;
@@ -239,7 +249,7 @@ export default {
   }
   &[data-shabon='21'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s forwards;
+    animation: shabonFadeIn 3s forwards;
   }
   &[data-shabon='22'] {
     width: 200px;
@@ -249,7 +259,7 @@ export default {
   }
   &[data-shabon='24'] {
     width: 200px;
-    animation: shabonFadeIn 3s 0.5s forwards;
+    animation: shabonFadeIn 3s 0.2s forwards;
   }
   &[data-shabon='25'] {
     width: 200px;
@@ -264,9 +274,11 @@ export default {
   }
   &[data-shabon='28'] {
     width: 200px;
+    animation: shabonFadeIn 3s forwards;
   }
   &[data-shabon='29'] {
     width: 200px;
+    animation: shabonFadeIn 2.6s 0.2s forwards;
   }
   &[data-shabon='30'] {
     width: 200px;
@@ -349,7 +361,7 @@ export default {
 
 @keyframes shabonFadeIn {
   0% {
-    transform: translate(0, 100vh);
+    transform: translate(0, 50vh);
     opacity: 0;
   }
   20% {
